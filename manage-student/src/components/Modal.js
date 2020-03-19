@@ -1,21 +1,98 @@
 import React, { Component } from "react";
+class Modal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: "",
+      name: "",
+      email: "",
+      bio: "",
+      phone: ""
+    };
+  }
 
-class Search extends Component {
+  componentDidMount() {
+    if (this.props.studentUpdate) {
+      this.setState({
+        id: this.props.studentUpdate.id,
+        name: this.props.studentUpdate.name,
+        email: this.props.studentUpdate.email,
+        bio: this.props.studentUpdate.bio,
+        phone: this.props.studentUpdate.phone
+      });
+    }
+  }
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps && nextProps.studentUpdate) {
+      this.setState({
+        id: nextProps.studentUpdate.id,
+        name: nextProps.studentUpdate.name,
+        email: nextProps.studentUpdate.email,
+        bio: nextProps.studentUpdate.bio,
+        phone: nextProps.studentUpdate.phone
+      });
+    } else if (!nextProps.studentUpdate) {
+      this.setState({
+        id: "",
+        name: "",
+        email: "",
+        bio: "",
+        phone: ""
+      });
+    }
+  }
+
+  onCloseModal = () => {
+    this.props.onCloseModal();
+  };
+
+  onChange = event => {
+    var target = event.target;
+    var name = target.name;
+    var value = target.value;
+    this.setState({
+      [name]: value
+    });
+  };
+
+  onSubmit = event => {
+    event.preventDefault();
+    this.props.onSubmit(this.state);
+    // Submit xong thì clear form
+    this.onClear();
+    this.onCloseModal();
+  };
+
+  onClear = () => {
+    this.setState({
+      name: "",
+      email: "",
+      bio: "",
+      phone: ""
+    });
+  };
   render() {
+    const modalVisible = this.props.modalVisible;
+    const styles = modalVisible ? { display: "block" } : { display: "none" };
+    const id = this.state.id;
     return (
       <div>
         {/* Add-Edit Modal */}
-        <div id="addEmployeeModal" className="modal fade">
-          <div className="modal-dialog">
+
+        <div className="modal fade show" style={styles}>
+          <div className="modal-dialog ">
             <div className="modal-content">
-              <form>
+              <form onSubmit={this.onSubmit}>
                 <div className="modal-header">
-                  <h4 className="modal-title">Add Student</h4>
+                  <h4 className="modal-title">
+                    {id !== "" ? "Cập nhập thông tin" : "Thêm sinh viên"}
+                  </h4>
                   <button
                     type="button"
                     className="close"
                     data-dismiss="modal"
                     aria-hidden="true"
+                    onClick={this.onCloseModal}
                   >
                     ×
                   </button>
@@ -23,73 +100,52 @@ class Search extends Component {
                 <div className="modal-body">
                   <div className="form-group">
                     <label>Name</label>
-                    <input type="text" className="form-control" id="name" />
-                  </div>
-                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="name"
+                      value={this.state.name}
+                      onChange={this.onChange}
+                    />
+
                     <label>Email</label>
-                    <input type="email" className="form-control" id="email" />
-                  </div>
-                  <div className="form-group">
+                    <input
+                      type="email"
+                      className="form-control"
+                      name="email"
+                      value={this.state.email}
+                      onChange={this.onChange}
+                    />
+
                     <label>Bio</label>
                     <textarea
                       className="form-control"
-                      id="bio"
-                      defaultValue={""}
+                      name="bio"
+                      value={this.state.bio}
+                      onChange={this.onChange}
+                    />
+
+                    <label>Phone</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="phone"
+                      value={this.state.phone}
+                      onChange={this.onChange}
                     />
                   </div>
-                  <div className="form-group">
-                    <label>Phone</label>
-                    <input type="text" className="form-control" id="phone" />
-                  </div>
                 </div>
                 <div className="modal-footer">
                   <button
                     type="button"
                     className="btn btn-default"
                     data-dismiss="modal"
+                    onClick={this.onCloseModal}
                   >
                     Cancel
                   </button>
-                  <button type="button" className="btn btn-success">
-                    Add
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        {/* Delete-Modal */}
-        <div id="deleteEmployeeModal" className="modal fade">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <form>
-                <div className="modal-header">
-                  <h4 className="modal-title">Delete Student</h4>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-hidden="true"
-                  >
-                    ×
-                  </button>
-                </div>
-                <div className="modal-body">
-                  <p>Are you sure you want to delete these Records?</p>
-                  <p className="text-warning">
-                    <small>This action cannot be undone.</small>
-                  </p>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-default"
-                    data-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button type="button" className="btn btn-danger">
-                    Delete
+                  <button type="submit" className="btn btn-success">
+                    {id !== "" ? "Cập nhật" : "Thêm"}
                   </button>
                 </div>
               </form>
@@ -100,4 +156,4 @@ class Search extends Component {
     );
   }
 }
-export default Search;
+export default Modal;
