@@ -3,44 +3,22 @@ import StudentItem from "./StudentItem";
 export default class Table extends Component {
   render() {
     // Nhận props student từ App truyền sang
-    const students = this.props.students;
+    const { students, collection, totalPages, numPerPages } = this.props;
+
     // Dùng map hiển thị danh sách
     const listStudent = students.map((student, index) => (
       <StudentItem
         key={student.id}
         student={student}
-        // Nhận id từ studentitem truyền ra app 
+        stt={index + 1 + (totalPages - 1) * numPerPages}
+        collection={collection}
+        // Nhận id từ studentitem truyền ra app
         onDelete={this.props.onDelete}
         onUpdate={this.props.onUpdate}
+        onMultiDelete={this.props.onMultiDelete}
+        handleChange={this.props.handleChange}
       />
     ));
-    return (
-      <table className="table table-striped table-hover" id="myTable">
-        <thead>
-          <tr>
-            <th>
-              <span className="custom-checkbox">
-                <input type="checkbox" id="selectAll" />
-                <label htmlFor="selectAll" />
-              </span>
-            </th>
-            <th className="sort">
-              Name <i className="fas fa-sort" />
-            </th>
-            <th className="sort">
-              Email <i className="fas fa-sort" />
-            </th>
-            <th className="sort">
-              Address <i className="fas fa-sort" />
-            </th>
-            <th className="sort">
-              Phone <i className="fas fa-sort" />
-            </th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="table-content">{listStudent}</tbody>
-      </table>
-    );
+    return <tbody id="table-content">{listStudent}</tbody>;
   }
 }

@@ -8,16 +8,23 @@ export default class StudentItem extends React.Component {
   onUpdate = () => {
     this.props.onUpdate(this.props.student.id);
   };
+  handleChange = () => {
+    this.props.handleChange(this.props.student);
+  };
+
   render() {
-    const student = this.props.student;
+    const { student, stt } = this.props;
+
     return (
       <tr>
+        <td>{stt}</td>
         <td>
           <span className="custom-checkbox">
             <input
               type="checkbox"
-              className="checkboxStudent"
-              name="options[]"
+              checked={student.isChecked}
+              onChange={this.props.handleChange}
+              name={student.name}
             />
             <label htmlFor="checkbox1"></label>
           </span>
@@ -27,13 +34,35 @@ export default class StudentItem extends React.Component {
         <td>{student.bio}</td>
         <td>{student.phone}</td>
         <td>
-          <button type="button" class="btn" onClick={this.onUpdate}>
-            <i className="material-icons text-warning align-middle" title="Edit">
+          <button
+            className="btn"
+            style={
+              student.isChecked === false
+                ? { type: "button" }
+                : { display: "none" }
+            }
+            onClick={this.onUpdate}
+          >
+            <i
+              className="material-icons text-warning align-middle"
+              title="Edit"
+            >
               
             </i>
           </button>
-          <button type="button" class="btn " onClick={this.onDelete}>
-            <i className="material-icons text-danger align-middle" title="Delete">
+          <button
+            className="btn "
+            style={
+              student.isChecked === false
+                ? { type: "button" }
+                : { display: "none" }
+            }
+            onClick={this.onDelete}
+          >
+            <i
+              className="material-icons text-danger align-middle"
+              title="Delete"
+            >
               
             </i>
           </button>
