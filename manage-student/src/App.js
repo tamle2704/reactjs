@@ -59,13 +59,6 @@ class App extends Component {
     );
   }
 
-  isToggleModal = () => {
-    this.setState({
-      modalVisible: !this.state.modalVisible,
-      studentUpdate: null,
-    });
-  };
-
   onCloseModal = () => {
     this.setState({
       modalVisible: false,
@@ -86,6 +79,7 @@ class App extends Component {
     });
   };
   onSubmit = (data) => {
+    console.log(data);
     var newStudents = this.state.students;
     if (data.id === "") {
       data.id = this.generateID();
@@ -220,7 +214,6 @@ class App extends Component {
     this.setState({
       totalPages: Number(a),
     });
-    console.log(Number(a));
   };
 
   onSelect = (e) => {
@@ -262,7 +255,7 @@ class App extends Component {
               <div className="row">
                 <div className="col-sm-6">
                   <h2>
-                    Danh Sách <b>Sinh Viên</b>
+                    Danh sách <b>Sinh viên</b>
                   </h2>
                 </div>
 
@@ -283,7 +276,7 @@ class App extends Component {
                   <button
                     className="btn btn-success"
                     data-toggle="modal"
-                    onClick={this.isToggleModal}
+                    onClick={this.onShowModal}
                   >
                     <i className="material-icons"></i>{" "}
                     <span>Thêm sinh viên</span>
@@ -293,7 +286,7 @@ class App extends Component {
                     data-toggle="modal"
                     onClick={this.onShowModalDel}
                   >
-                    <i className="material-icons"></i> <span>Xóa Nhiều</span>
+                    <i className="material-icons"></i> <span>Xóa nhiều</span>
                   </button>
                 </div>
               </div>
@@ -303,7 +296,6 @@ class App extends Component {
             <table className="table table-striped table-hover" id="myTable">
               <thead>
                 <tr>
-                  <th>STT</th>
                   <th>
                     <span className="custom-checkbox">
                       <input
@@ -316,18 +308,18 @@ class App extends Component {
                     </span>
                   </th>
                   <th onClick={() => this.onSort("name")}>
-                    Name <i className={this.setArrow("name")} />
+                    Tên <i className={this.setArrow("name")} />
                   </th>
                   <th onClick={() => this.onSort("email")}>
                     Email <i className={this.setArrow("email")} />
                   </th>
                   <th onClick={() => this.onSort("bio")}>
-                    Address <i className={this.setArrow("bio")} />
+                    Địa chỉ <i className={this.setArrow("bio")} />
                   </th>
                   <th className=" phone" onClick={() => this.onSort("phone")}>
-                    Phone <i className={this.setArrow("phone")} />
+                    Số ĐT <i className={this.setArrow("phone")} />
                   </th>
-                  <th>Actions</th>
+                  <th>Hành động</th>
                 </tr>
               </thead>
               <Table

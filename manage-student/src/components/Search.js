@@ -23,14 +23,18 @@ class Search extends Component {
         <div className="col-sm-4 my-1">
           <div className="input-group">
             <input
-              type="text"
+              type="search"
               className="form-control"
               placeholder="Search"
               name="keyword"
               value={keyword}
               onChange={this.onChange}
             />
-            <button className="btn btn-primary" onClick={this.onSearch}>Gửi</button>
+            <input
+              type="submit"
+              className="btn btn-success"
+              onClick={this.onSearch}
+            ></input>
           </div>
         </div>
       </div>

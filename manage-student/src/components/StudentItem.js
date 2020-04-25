@@ -13,11 +13,10 @@ export default class StudentItem extends React.Component {
   };
 
   render() {
-    const { student, stt } = this.props;
+    const { student } = this.props;
 
     return (
       <tr>
-        <td>{stt}</td>
         <td>
           <span className="custom-checkbox">
             <input
@@ -34,15 +33,7 @@ export default class StudentItem extends React.Component {
         <td>{student.bio}</td>
         <td>{student.phone}</td>
         <td>
-          <button
-            className="btn"
-            style={
-              student.isChecked === false
-                ? { type: "button" }
-                : { display: "none" }
-            }
-            onClick={this.onUpdate}
-          >
+          <button className="btn" type="button" onClick={this.onUpdate}>
             <i
               className="material-icons text-warning align-middle"
               title="Edit"
@@ -50,15 +41,7 @@ export default class StudentItem extends React.Component {
               
             </i>
           </button>
-          <button
-            className="btn "
-            style={
-              student.isChecked === false
-                ? { type: "button" }
-                : { display: "none" }
-            }
-            onClick={this.onDelete}
-          >
+          <button className="btn " type="button" onClick={this.onDelete}>
             <i
               className="material-icons text-danger align-middle"
               title="Delete"

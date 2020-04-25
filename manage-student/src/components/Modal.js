@@ -7,7 +7,7 @@ class Modal extends Component {
       name: "",
       email: "",
       bio: "",
-      phone: ""
+      phone: "",
     };
   }
 
@@ -18,7 +18,7 @@ class Modal extends Component {
         name: this.props.studentUpdate.name,
         email: this.props.studentUpdate.email,
         bio: this.props.studentUpdate.bio,
-        phone: this.props.studentUpdate.phone
+        phone: this.props.studentUpdate.phone,
       });
     }
   }
@@ -29,7 +29,7 @@ class Modal extends Component {
         name: nextProps.studentUpdate.name,
         email: nextProps.studentUpdate.email,
         bio: nextProps.studentUpdate.bio,
-        phone: nextProps.studentUpdate.phone
+        phone: nextProps.studentUpdate.phone,
       });
     } else if (!nextProps.studentUpdate) {
       this.setState({
@@ -37,7 +37,7 @@ class Modal extends Component {
         name: "",
         email: "",
         bio: "",
-        phone: ""
+        phone: "",
       });
     }
   }
@@ -51,16 +51,16 @@ class Modal extends Component {
     this.onCloseModal();
   };
 
-  onChange = event => {
+  onChange = (event) => {
     var target = event.target;
     var name = target.name;
     var value = target.value;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit(this.state);
     // Submit xong thì clear form
@@ -73,7 +73,7 @@ class Modal extends Component {
       name: "",
       email: "",
       bio: "",
-      phone: ""
+      phone: "",
     });
   };
 
@@ -173,8 +173,12 @@ class Modal extends Component {
                   <span aria-hidden="true">×</span>
                 </button>
               </div>
-              <div className="modal-body">{collection.length === 0 ? "Không có mục nào được chọn!" : `Bạn có chắc muốn xóa ${collection.length} mục này` }
-                
+              <div className="modal-body">
+                {collection.length === 0
+                  ? "No items selected!"
+                  : `Are you sure you want to delete ${collection.length} ${
+                      collection.length <= 1 ? "item" : "items"
+                    }`}
               </div>
               <div className="modal-footer">
                 <button
